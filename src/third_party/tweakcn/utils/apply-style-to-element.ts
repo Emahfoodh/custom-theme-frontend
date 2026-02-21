@@ -5,7 +5,6 @@
  *
  * Modifications 2026:
  * - Code formatting adjustments
- * - Updated import paths to match project structure
  */
 export function applyStyleToElement(
   element: HTMLElement,

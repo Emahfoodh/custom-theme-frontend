@@ -1,4 +1,5 @@
 import { ThemeScript } from '@/components/theme-script';
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/third_party/tweakcn/components/theme-provider';
 import type { Metadata } from 'next';
@@ -38,7 +39,10 @@ export default function RootLayout({
         <NuqsAdapter>
           <Suspense>
             <ThemeProvider defaultTheme="light">
-              <TooltipProvider>{children}</TooltipProvider>
+              <TooltipProvider>
+                {children}
+                <Toaster />
+              </TooltipProvider>
             </ThemeProvider>
           </Suspense>
         </NuqsAdapter>
