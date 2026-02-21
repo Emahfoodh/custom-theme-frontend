@@ -82,7 +82,6 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
     border: styles.border || "#e2e8f0",
     ring: styles.ring || "#000000",
     radius: styles.radius || "0.5",
-    input: styles.input || "#e2e8f0",
   };
 
   const boxShadow = computeBoxShadow(styles);
@@ -103,19 +102,19 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
       <div className="absolute inset-3 flex flex-col gap-2">
         {/* Top bar with nav dots and "button" */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
+          <div className="min-w-0 flex-1 pr-2">
             <div
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: c.destructive }}
-            />
-            <div
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: c.muted }}
-            />
-            <div
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: c.accent }}
-            />
+              className="truncate font-bold leading-tight"
+              style={{
+                fontSize: "1.1rem",
+                color: c.fg,
+                fontFamily: fontLoaded ? fontSans || undefined : undefined,
+                opacity: fontFamily && !fontLoaded ? 0 : 1,
+                transition: "opacity 0.15s ease-in",
+              }}
+            >
+              {name || "Aa"}
+            </div>
           </div>
           <div
             className="h-4 px-3 flex items-center"
@@ -134,20 +133,6 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
               {"Button"}
             </span>
           </div>
-        </div>
-
-        {/* Title text */}
-        <div
-          className="mt-1 font-bold leading-tight truncate"
-          style={{
-            fontSize: "1.1rem",
-            color: c.fg,
-            fontFamily: fontLoaded ? fontSans || undefined : undefined,
-            opacity: fontFamily && !fontLoaded ? 0 : 1,
-            transition: "opacity 0.15s ease-in",
-          }}
-        >
-          {name || "Aa"}
         </div>
 
         {/* Subtitle / muted text */}
@@ -218,7 +203,7 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
 
         {/* Color swatches at bottom */}
         <div className="flex items-center gap-1 pt-1">
-          {[c.primary, c.secondary, c.accent, c.destructive, c.muted].map(
+          {[c.primary, c.secondary, c.accent, c.muted, c.border, c.card].map(
             (color, i) => (
               <div
                 key={i}

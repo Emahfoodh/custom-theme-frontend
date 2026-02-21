@@ -28,24 +28,15 @@ export function ThemeCard({ theme }: ThemeCardProps) {
             name={theme.name}
             className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
+          <span className="absolute right-3 bottom-3 z-10 text-xs text-muted-foreground">
+            {publishedDate}
+          </span>
           {/* Hover overlay with arrow */}
           <div className="absolute inset-0 flex items-center justify-center bg-foreground/0 transition-all duration-300 group-hover:bg-foreground/5">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/0 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:bg-foreground/10 group-hover:opacity-100">
               <ArrowUpRight className="h-4 w-4 text-foreground" />
             </div>
           </div>
-        </div>
-
-        {/* Info area */}
-        <div className="flex items-center justify-between gap-3 border-t border-border/40 px-4 py-3">
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-card-foreground">
-              {theme.name}
-            </p>
-          </div>
-          <span className="shrink-0 text-xs text-muted-foreground">
-            {publishedDate}
-          </span>
         </div>
       </div>
     </Link>
