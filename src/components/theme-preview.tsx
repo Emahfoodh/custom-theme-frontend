@@ -82,18 +82,11 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
     border: styles.border || "#e2e8f0",
     ring: styles.ring || "#000000",
     radius: styles.radius || "0.5",
+    input: styles.input || "#e2e8f0",
   };
 
   const boxShadow = computeBoxShadow(styles);
-
-  const palette = [
-    c.primary,
-    c.secondary,
-    c.accent,
-    c.muted,
-    c.border,
-    c.card,
-  ];
+  const borderRadius = `${parseFloat(c.radius) * 0.75}rem`;
 
   return (
     <div
@@ -106,34 +99,143 @@ export function ThemePreview({ styles, name, className }: ThemePreviewProps) {
         color: c.fg,
       }}
     >
-      {/* Color Palette - top right */}
-      <div className="absolute top-3 right-3 flex flex-row gap-1.5">
-        {palette.map((color, i) => (
+      {/* Mini UI mockup */}
+      <div className="absolute inset-3 flex flex-col gap-2">
+        {/* Top bar with nav dots and "button" */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <div
+              className="h-2 w-2 rounded-full"
+              style={{ backgroundColor: c.destructive }}
+            />
+            <div
+              className="h-2 w-2 rounded-full"
+              style={{ backgroundColor: c.muted }}
+            />
+            <div
+              className="h-2 w-2 rounded-full"
+              style={{ backgroundColor: c.accent }}
+            />
+          </div>
           <div
-            key={i}
-            className="w-3 h-12"
+            className="h-4 px-3 flex items-center"
             style={{
-              borderRadius: `${parseFloat(c.radius) * 0.75}rem`,
-              backgroundColor: color,
-              border: color === c.bg ? `1px solid ${c.border}` : undefined,
-              boxShadow,
+              backgroundColor: c.primary,
+              borderRadius,
+            }}
+          >
+            <span
+              className="text-[6px] font-semibold leading-none"
+              style={{
+                color: c.primaryFg,
+                fontFamily: fontLoaded ? fontSans || undefined : undefined,
+              }}
+            >
+              {"Button"}
+            </span>
+          </div>
+        </div>
+
+        {/* Title text */}
+        <div
+          className="mt-1 font-bold leading-tight truncate"
+          style={{
+            fontSize: "1.1rem",
+            color: c.fg,
+            fontFamily: fontLoaded ? fontSans || undefined : undefined,
+            opacity: fontFamily && !fontLoaded ? 0 : 1,
+            transition: "opacity 0.15s ease-in",
+          }}
+        >
+          {name || "Aa"}
+        </div>
+
+        {/* Subtitle / muted text */}
+        <div
+          className="flex items-center gap-1.5"
+          style={{
+            fontSize: "7px",
+            color: c.mutedFg,
+            fontFamily: fontLoaded ? fontSans || undefined : undefined,
+            opacity: fontFamily && !fontLoaded ? 0 : 1,
+          }}
+        >
+          <div
+            className="h-1 flex-1"
+            style={{
+              backgroundColor: c.muted,
+              borderRadius,
             }}
           />
-        ))}
-      </div>
+          <div
+            className="h-1 w-1/3"
+            style={{
+              backgroundColor: c.muted,
+              borderRadius,
+            }}
+          />
+        </div>
 
-      {/* Typography - bottom left */}
-      <div
-        className="absolute bottom-3 left-4 max-w-[80%] truncate font-medium"
-        style={{
-          fontSize: "1.5rem",
-          color: c.fg,
-          fontFamily: fontLoaded ? fontSans || undefined : undefined,
-          opacity: fontFamily && !fontLoaded ? 0 : 1,
-          transition: "opacity 0.15s ease-in",
-        }}
-      >
-        {name || "Aa"}
+        {/* Card mockup row */}
+        <div className="mt-auto flex gap-1.5">
+          <div
+            className="flex-1 p-1.5"
+            style={{
+              backgroundColor: c.card,
+              border: `1px solid ${c.border}`,
+              borderRadius,
+              boxShadow,
+            }}
+          >
+            <div
+              className="h-1.5 w-3/4 mb-1"
+              style={{ backgroundColor: c.primary, borderRadius }}
+            />
+            <div
+              className="h-1 w-full"
+              style={{ backgroundColor: c.muted, borderRadius }}
+            />
+          </div>
+          <div
+            className="flex-1 p-1.5"
+            style={{
+              backgroundColor: c.card,
+              border: `1px solid ${c.border}`,
+              borderRadius,
+              boxShadow,
+            }}
+          >
+            <div
+              className="h-1.5 w-2/3 mb-1"
+              style={{ backgroundColor: c.accent, borderRadius }}
+            />
+            <div
+              className="h-1 w-full"
+              style={{ backgroundColor: c.muted, borderRadius }}
+            />
+          </div>
+        </div>
+
+        {/* Color swatches at bottom */}
+        <div className="flex items-center gap-1 pt-1">
+          {[c.primary, c.secondary, c.accent, c.destructive, c.muted].map(
+            (color, i) => (
+              <div
+                key={i}
+                className="h-2.5 w-2.5 rounded-full ring-1"
+                style={{
+                  backgroundColor: color,
+                  // Use a transparent ring to give definition when swatch matches bg
+                  boxShadow:
+                    color === c.bg
+                      ? `inset 0 0 0 1px ${c.border}`
+                      : undefined,
+                  ["--tw-ring-color" as string]: `${c.border}`,
+                }}
+              />
+            )
+          )}
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { MyTheme } from "@/types/my-theme";
 import { useTheme } from "@/third_party/tweakcn/components/theme-provider";
 import { ThemePreview } from "@/components/theme-preview";
+import { ArrowUpRight } from "lucide-react";
 
 interface ThemeCardProps {
   theme: MyTheme;
@@ -14,27 +15,37 @@ export function ThemeCard({ theme }: ThemeCardProps) {
 
   const publishedDate = new Date(theme.publishedAt).toLocaleDateString(
     "en-US",
-    { day: "numeric", month: "short" }
+    { day: "numeric", month: "short", year: "numeric" }
   );
 
   return (
-    <Link href={`/themes/${theme.themeId}`} className="group">
-      <div className="relative h-44 w-full overflow-hidden rounded-xl border shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:border-foreground/20">
-        <ThemePreview
-          styles={theme.styles[currentTheme]}
-          name={theme.name}
-          className="transition-transform duration-300 group-hover:scale-102"
-        />
-      </div>
-
-      <div className="flex items-start justify-between gap-2 px-1 pt-2">
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium">{theme.name}</p>
-          <div className="mt-1 flex items-center gap-3">
-            <span className="text-xs text-muted-foreground/60">
-              {publishedDate}
-            </span>
+    <Link href={`/themes/${theme.themeId}`} className="group block">
+      <div className="overflow-hidden rounded-xl border border-border/60 bg-card transition-all duration-300 group-hover:border-foreground/15 group-hover:shadow-lg">
+        {/* Preview area */}
+        <div className="relative h-48 w-full overflow-hidden">
+          <ThemePreview
+            styles={theme.styles[currentTheme]}
+            name={theme.name}
+            className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+          />
+          {/* Hover overlay with arrow */}
+          <div className="absolute inset-0 flex items-center justify-center bg-foreground/0 transition-all duration-300 group-hover:bg-foreground/5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/0 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:bg-foreground/10 group-hover:opacity-100">
+              <ArrowUpRight className="h-4 w-4 text-foreground" />
+            </div>
           </div>
+        </div>
+
+        {/* Info area */}
+        <div className="flex items-center justify-between gap-3 border-t border-border/40 px-4 py-3">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-card-foreground">
+              {theme.name}
+            </p>
+          </div>
+          <span className="shrink-0 text-xs text-muted-foreground">
+            {publishedDate}
+          </span>
         </div>
       </div>
     </Link>
