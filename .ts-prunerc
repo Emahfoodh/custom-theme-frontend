@@ -1,0 +1,5 @@
+{
+  "project": "tsconfig.json",
+  "ignore": "(/app/|/pages/)",
+  "skip": "(\\.next/|next\\.config\\.ts$|\\.test\\.|\\.spec\\.|\\.stories\\.)"
+}

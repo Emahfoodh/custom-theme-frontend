@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm lint:eslint && pnpm format:check",
+    "deadcode": "ts-prune",
+    "deadcode:ci": "ts-prune -e",
+    "lint": "pnpm lint:eslint && pnpm format:check && pnpm run deadcode:ci",
     "lint:eslint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -27,6 +29,7 @@
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "tailwindcss": "^4",
+    "ts-prune": "^0.10.3",
     "typescript": "^5"
   }
 }
