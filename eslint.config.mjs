@@ -37,5 +37,6 @@ export default defineConfig([
     'build/**',
     '.open-next/**',
     'next-env.d.ts',
+    'src/third_party/tweakcn/**',
   ]),
 ]);

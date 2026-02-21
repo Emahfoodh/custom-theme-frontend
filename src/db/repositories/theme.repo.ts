@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { db } from '@/db/client';
 import { theme } from '@/db/schema/theme';
-import { themeStylesSchema } from '@/types/theme';
+import { themeStylesSchema } from '@/third_party/tweakcn/types/theme';
 
 // ts-prune-ignore-next
 export const createThemeSchema = z.object({

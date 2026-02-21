@@ -1,6 +1,14 @@
+/*
+ * This file is part of tweakcn
+ * Copyright (c) Sahaj J.
+ * Licensed under the Apache License 2.0
+ */
+
+import { theme } from '@/db/schema/theme';
+import { InferSelectModel } from 'drizzle-orm';
 import { z } from 'zod';
 
-const themeStylePropsSchema = z.object({
+export const themeStylePropsSchema = z.object({
   background: z
     .string()
     .describe('The default background color, paired with `foreground`.'),
@@ -104,4 +112,41 @@ export const themeStylesSchema = z.object({
   dark: themeStylePropsSchema,
 });
 
+export type ThemeStyleProps = z.infer<typeof themeStylePropsSchema>;
 export type ThemeStyles = z.infer<typeof themeStylesSchema>;
+
+export const themeStylePropsSchemaWithoutSpacing = themeStylePropsSchema.omit({
+  spacing: true,
+});
+
+export const themeStylesSchemaWithoutSpacing = z.object({
+  light: themeStylePropsSchemaWithoutSpacing,
+  dark: themeStylePropsSchemaWithoutSpacing,
+});
+
+export type ThemeStylesWithoutSpacing = z.infer<
+  typeof themeStylesSchemaWithoutSpacing
+>;
+
+export interface ThemeEditorPreviewProps {
+  styles: ThemeStyles;
+  currentMode: 'light' | 'dark';
+}
+
+export interface ThemeEditorControlsProps {
+  styles: ThemeStyles;
+  currentMode: 'light' | 'dark';
+  onChange: (styles: ThemeStyles) => void;
+}
+
+export type ThemePreset = {
+  source?: 'SAVED' | 'BUILT_IN';
+  createdAt?: string;
+  label?: string;
+  styles: {
+    light: Partial<ThemeStyleProps>;
+    dark: Partial<ThemeStyleProps>;
+  };
+};
+
+export type Theme = InferSelectModel<typeof theme>;

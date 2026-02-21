@@ -1,5 +1,10 @@
+import { ThemeScript } from '@/components/theme-script';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ThemeProvider } from '@/third_party/tweakcn/components/theme-provider';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Suspense } from 'react';
 import './globals.css';
 
 const geistSans = Geist({
@@ -23,11 +28,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NuqsAdapter>
+          <Suspense>
+            <ThemeProvider defaultTheme="light">
+              <TooltipProvider>{children}</TooltipProvider>
+            </ThemeProvider>
+          </Suspense>
+        </NuqsAdapter>
       </body>
     </html>
   );

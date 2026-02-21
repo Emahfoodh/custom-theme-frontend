@@ -1,5 +1,5 @@
 {
   "project": "tsconfig.json",
-  "ignore": "(/app/|/pages/|/components/ui/)",
+  "ignore": "(/app/|/pages/|/components/ui/|src/third_party/tweakcn/)",
   "skip": "(\\.next/|next\\.config\\.ts$|\\.test\\.|\\.spec\\.|\\.stories\\.)"
 }

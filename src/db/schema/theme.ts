@@ -1,6 +1,6 @@
 import { json, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
-import type { ThemeStyles } from '@/types/theme';
+import type { ThemeStyles } from '@/third_party/tweakcn/types/theme';
 
 // ts-prune-ignore-next
 export const theme = pgTable('theme', {
