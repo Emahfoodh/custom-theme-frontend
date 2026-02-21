@@ -2,7 +2,7 @@
 
 import { useThemeFeed } from "@/hooks/themes";
 import { useEffect, useRef } from "react";
-import { Flame, Loader2 } from "lucide-react";
+import { Palette, Loader2 } from "lucide-react";
 import { ThemeCard } from "./themes-theme-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -34,43 +34,45 @@ export function ThemesContent() {
   return (
     <div className="flex-1">
       <div className="min-w-0 flex-1">
-        <div className="space-y-6 p-4">
+        <div className="p-4">
           {isLoading ? (
-            <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+            <div className="grid gap-6 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
-                  className="space-y-0 overflow-hidden rounded-xl border"
+                  className="overflow-hidden rounded-xl border border-border/60 bg-card"
                 >
-                  <Skeleton className="h-36 rounded-none" />
-                  <div className="space-y-2 p-3">
+                  <Skeleton className="h-48 rounded-none" />
+                  <div className="flex items-center justify-between gap-3 border-t border-border/40 px-4 py-3">
                     <Skeleton className="h-4 w-2/3" />
-                    <Skeleton className="h-3 w-1/3" />
+                    <Skeleton className="h-3 w-16" />
                   </div>
                 </div>
               ))}
             </div>
           ) : themes.length === 0 ? (
-            <div className="py-24 text-center">
-              <div className="bg-muted mx-auto mb-4 flex size-16 items-center justify-center rounded-full">
-                <Flame className="text-muted-foreground size-8" />
+            <div className="py-32 text-center">
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted">
+                <Palette className="h-7 w-7 text-muted-foreground" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold">No themes yet</h3>
-                <p className="text-muted-foreground mx-auto max-w-sm">
-                  Be the first to save a theme. It will appear here for everyone.
-                </p>
-              </div>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">
+                {"No themes yet"}
+              </h3>
+              <p className="mx-auto max-w-sm text-sm text-muted-foreground">
+                {"Be the first to save a theme. It will appear here for everyone."}
+              </p>
+            </div>
           ) : (
             <>
-              <div className="grid gap-5 gap-y-8 grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+              <div className="grid gap-6 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
                 {themes.map((theme) => (
                   <ThemeCard key={theme.id} theme={theme} />
                 ))}
               </div>
 
-              <div ref={sentinelRef} className="flex justify-center pt-4">
+              <div ref={sentinelRef} className="flex justify-center py-8">
                 {isFetchingNextPage && (
-                  <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 )}
               </div>
             </>
