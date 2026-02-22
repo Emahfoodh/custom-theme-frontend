@@ -79,8 +79,6 @@ const timerProjects: TimerProject[] = [
   },
 ];
 
-const periodOptions = ['This Week', 'This Month', 'This Quarter'];
-
 const recentEntries: RecentTimeEntry[] = [
   {
     id: '1',
@@ -167,7 +165,6 @@ export default function CardsDemo() {
   const [timerElapsed, setTimerElapsed] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerPaused, setTimerPaused] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] = useState('This Week');
   const [selectedRole, setSelectedRole] = useState('Manager');
   const [weekAnchor, setWeekAnchor] = useState(new Date());
 

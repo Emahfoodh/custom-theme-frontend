@@ -7,6 +7,7 @@ import { Calendar, Edit } from 'lucide-react';
 import { notFound, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { CodeButton } from './editor/action-bar/components/code-button';
+import { CodePanelDialog } from './editor/code-panel-dialog';
 import ThemePreviewPanel from './editor/theme-preview-panel';
 import { ThemeToggle } from './theme-toggle';
 
@@ -46,13 +47,6 @@ export default function ThemeView({ theme, themePublishData }: ThemeViewProps) {
   if (!theme) {
     notFound();
   }
-
-  const toggleTheme = () => {
-    setThemeState({
-      ...themeState,
-      currentMode: currentMode === 'light' ? 'dark' : 'light',
-    });
-  };
 
   const handleOpenInEditor = () => {
     setThemeState({
@@ -111,6 +105,12 @@ export default function ThemeView({ theme, themePublishData }: ThemeViewProps) {
       <div className="-m-4 mt-6 flex h-[min(80svh,900px)] flex-col">
         <ThemePreviewPanel styles={theme.styles} currentMode={currentMode} />
       </div>
+
+      <CodePanelDialog
+        open={codePanelOpen}
+        onOpenChange={setCodePanelOpen}
+        themeEditorState={themeState}
+      />
     </>
   );
 }

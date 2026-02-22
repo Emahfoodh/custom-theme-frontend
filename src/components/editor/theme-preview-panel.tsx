@@ -45,7 +45,9 @@ const ThemePreviewPanel = ({
       >
         <Tabs
           value={activeTab}
-          onValueChange={setActiveTab}
+          onValueChange={(value) => {
+            void setActiveTab(value);
+          }}
           className="flex flex-1 flex-col overflow-hidden"
         >
           <HorizontalScrollArea className="mt-2 mb-1 flex w-full items-center justify-between px-4">
