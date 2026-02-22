@@ -1,4 +1,4 @@
-import { ThemeStyles } from "@/third_party/tweakcn/types/theme";
+import { ThemeStyles } from '@/third_party/tweakcn/types/theme';
 
 export interface MyTheme {
   id: string;

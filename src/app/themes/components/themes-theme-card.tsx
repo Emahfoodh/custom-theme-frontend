@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import type { MyTheme } from "@/types/my-theme";
-import { useTheme } from "@/third_party/tweakcn/components/theme-provider";
-import { ThemePreview } from "@/components/theme-preview";
-import { ArrowUpRight } from "lucide-react";
+import { ThemePreview } from '@/components/theme-preview';
+import { useTheme } from '@/third_party/tweakcn/components/theme-provider';
+import type { MyTheme } from '@/types/my-theme';
+import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface ThemeCardProps {
   theme: MyTheme;
@@ -14,8 +14,8 @@ export function ThemeCard({ theme }: ThemeCardProps) {
   const { theme: currentTheme } = useTheme();
 
   const publishedDate = new Date(theme.publishedAt).toLocaleDateString(
-    "en-US",
-    { day: "numeric", month: "short", year: "numeric" }
+    'en-US',
+    { day: 'numeric', month: 'short', year: 'numeric' },
   );
 
   return (

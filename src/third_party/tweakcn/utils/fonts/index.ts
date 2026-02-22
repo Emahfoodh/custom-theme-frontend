@@ -7,163 +7,166 @@
  * - Code formatting adjustments
  * - Updated import paths to match project structure
  */
-import { FontCategory, FontInfo } from "@/third_party/tweakcn/types/fonts";
+import { FontCategory, FontInfo } from '@/third_party/tweakcn/types/fonts';
 
 // Fallback fonts if the JSON file doesn't exist
 // Must be in Sync with the Built-in Fonts
 export const FALLBACK_FONTS: FontInfo[] = [
   // Sans Serif fonts
   {
-    family: "Inter",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Inter',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Roboto",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Roboto',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Open Sans",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Open Sans',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Poppins",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Poppins',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Montserrat",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Montserrat',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Outfit",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Outfit',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Plus Jakarta Sans",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Plus Jakarta Sans',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "DM Sans",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'DM Sans',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Geist",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Geist',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Oxanium",
-    category: "sans-serif",
-    variants: ["400", "600", "700"],
+    family: 'Oxanium',
+    category: 'sans-serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Architects Daughter",
-    category: "handwriting",
-    variants: ["400", "600", "700"],
+    family: 'Architects Daughter',
+    category: 'handwriting',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   // Serif fonts
   {
-    family: "Merriweather",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Merriweather',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Playfair Display",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Playfair Display',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Lora",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Lora',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Source Serif Pro",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Source Serif Pro',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Libre Baskerville",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Libre Baskerville',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Space Grotesk",
-    category: "serif",
-    variants: ["400", "600", "700"],
+    family: 'Space Grotesk',
+    category: 'serif',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   // Monospace fonts
   {
-    family: "JetBrains Mono",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'JetBrains Mono',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Fira Code",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'Fira Code',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: true,
   },
   {
-    family: "Source Code Pro",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'Source Code Pro',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "IBM Plex Mono",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'IBM Plex Mono',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Roboto Mono",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'Roboto Mono',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Space Mono",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'Space Mono',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: false,
   },
   {
-    family: "Geist Mono",
-    category: "monospace",
-    variants: ["400", "600", "700"],
+    family: 'Geist Mono',
+    category: 'monospace',
+    variants: ['400', '600', '700'],
     variable: true,
   },
 ];
 
 // Build font-family value for CSS
 // e.g., font: "Inter", category: "sans-serif" -> "Inter, ui-sans-serif, system-ui, sans-serif"
-export function buildFontFamily(fontFamily: string, category: FontCategory): string {
+export function buildFontFamily(
+  fontFamily: string,
+  category: FontCategory,
+): string {
   return `${fontFamily}, ${SYSTEM_FONTS_FALLBACKS[category]}`;
 }
 
@@ -173,10 +176,10 @@ export function extractFontFamily(fontFamilyValue: string): string | null {
   if (!fontFamilyValue) return null;
 
   // Split by comma and get the first font
-  const firstFont = fontFamilyValue.split(",")[0].trim();
+  const firstFont = fontFamilyValue.split(',')[0].trim();
 
   // Remove quotes if present
-  const cleanFont = firstFont.replace(/['"]/g, "");
+  const cleanFont = firstFont.replace(/['"]/g, '');
 
   // Skip system fonts
   if (SYSTEM_FONTS.includes(cleanFont.toLowerCase())) return null;
@@ -185,13 +188,27 @@ export function extractFontFamily(fontFamilyValue: string): string | null {
 
 // Get default weights for a font based on available variants
 export function getDefaultWeights(variants: string[]): string[] {
-  const weightMap = ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
-  const availableWeights = variants.filter((variant) => weightMap.includes(variant));
+  const weightMap = [
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900',
+  ];
+  const availableWeights = variants.filter((variant) =>
+    weightMap.includes(variant),
+  );
 
-  if (availableWeights.length === 0) return ["400"]; // Fallback to normal weight
+  if (availableWeights.length === 0) return ['400']; // Fallback to normal weight
 
-  const preferredWeights = ["400", "500", "600", "700"];
-  const selectedWeights = preferredWeights.filter((weight) => availableWeights.includes(weight));
+  const preferredWeights = ['400', '500', '600', '700'];
+  const selectedWeights = preferredWeights.filter((weight) =>
+    availableWeights.includes(weight),
+  );
 
   // If none of the preferred weights are available, use the first two available
   if (selectedWeights.length === 0) {
@@ -212,10 +229,10 @@ export function getDefaultWeights(variants: string[]): string[] {
 // Wait for a font to load using the native document.fonts API
 export async function waitForFont(
   family: string,
-  weight = "400",
-  timeout = 3000
+  weight = '400',
+  timeout = 3000,
 ): Promise<boolean> {
-  if (typeof document === "undefined" || !document.fonts) return false;
+  if (typeof document === 'undefined' || !document.fonts) return false;
 
   const font = `${weight} 16px "${family}"`;
 
@@ -223,7 +240,9 @@ export async function waitForFont(
     // Use the native document.fonts.load() method
     await Promise.race([
       document.fonts.load(font),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), timeout)),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Timeout')), timeout),
+      ),
     ]);
 
     return document.fonts.check(font);
@@ -233,21 +252,21 @@ export async function waitForFont(
 }
 
 export const SYSTEM_FONTS = [
-  "ui-sans-serif",
-  "ui-serif",
-  "ui-monospace",
-  "system-ui",
-  "sans-serif",
-  "serif",
-  "monospace",
-  "cursive",
-  "fantasy",
+  'ui-sans-serif',
+  'ui-serif',
+  'ui-monospace',
+  'system-ui',
+  'sans-serif',
+  'serif',
+  'monospace',
+  'cursive',
+  'fantasy',
 ];
 
 export const SYSTEM_FONTS_FALLBACKS = {
-  "sans-serif": "ui-sans-serif, sans-serif, system-ui",
-  serif: "ui-serif, serif",
-  monospace: "ui-monospace, monospace",
-  display: "ui-serif, serif",
-  handwriting: "cursive",
+  'sans-serif': 'ui-sans-serif, sans-serif, system-ui',
+  serif: 'ui-serif, serif',
+  monospace: 'ui-monospace, monospace',
+  display: 'ui-serif, serif',
+  handwriting: 'cursive',
 };

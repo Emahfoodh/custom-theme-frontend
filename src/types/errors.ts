@@ -9,16 +9,16 @@ export function actionSuccess<T>(data: T): ActionResult<T> {
 export class ValidationError extends Error {
   constructor(
     message: string,
-    public details?: unknown
+    public details?: unknown,
   ) {
     super(message);
-    this.name = "ValidationError";
+    this.name = 'ValidationError';
   }
 }
 
 export class ThemeNotFoundError extends Error {
-  constructor(message = "Theme not found") {
+  constructor(message = 'Theme not found') {
     super(message);
-    this.name = "ThemeNotFoundError";
+    this.name = 'ThemeNotFoundError';
   }
 }

@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getThemesPaginated } from "@/actions/themes";
-import type { MyThemeResponse } from "@/types/my-theme";
+import { getThemesPaginated } from '@/actions/themes';
+import type { MyThemeResponse } from '@/types/my-theme';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const themeFeedKeys = {
-  all: ["theme-feed"] as const,
-  list: () => [...themeFeedKeys.all, "list"] as const,
+  all: ['theme-feed'] as const,
+  list: () => [...themeFeedKeys.all, 'list'] as const,
 };
 
 export function useThemeFeed() {

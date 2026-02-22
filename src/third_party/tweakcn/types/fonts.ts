@@ -6,7 +6,12 @@
  * Modifications 2026:
  * - Code formatting adjustments
  */
-export type FontCategory = "sans-serif" | "serif" | "display" | "handwriting" | "monospace";
+export type FontCategory =
+  | 'sans-serif'
+  | 'serif'
+  | 'display'
+  | 'handwriting'
+  | 'monospace';
 
 // Google Fonts API response types
 export type GoogleFontAxis = {
@@ -20,7 +25,7 @@ export type GoogleFontFiles = {
 };
 
 export type GoogleFont = {
-  kind: "webfonts#webfont";
+  kind: 'webfonts#webfont';
   family: string;
   category: FontCategory;
   variants: string[];
@@ -33,7 +38,7 @@ export type GoogleFont = {
 };
 
 export type GoogleFontsAPIResponse = {
-  kind: "webfonts#webfontList";
+  kind: 'webfonts#webfontList';
   items: GoogleFont[];
 };
 

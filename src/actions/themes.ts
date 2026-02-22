@@ -1,20 +1,27 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { cache } from "react";
-import { desc, eq, sql } from "drizzle-orm";
 import { db } from '@/db/client';
+import { THEMES_PAGE_SIZE } from '@/lib/constants';
+import {
+  ThemeStyles,
+  themeStylesSchema,
+} from '@/third_party/tweakcn/types/theme';
+import {
+  ThemeNotFoundError,
+  ValidationError,
+  actionSuccess,
+} from '@/types/errors';
+import type { MyTheme, MyThemeResponse } from '@/types/my-theme';
+import { desc, eq, sql } from 'drizzle-orm';
+import { cache } from 'react';
+import { z } from 'zod';
 import { theme as themeTable } from '../db/schema/theme';
-import { ValidationError, ThemeNotFoundError, actionSuccess } from "@/types/errors";
-import { THEMES_PAGE_SIZE } from "@/lib/constants";
-import type { MyTheme, MyThemeResponse } from "@/types/my-theme";
-import { ThemeStyles, themeStylesSchema } from "@/third_party/tweakcn/types/theme";
 
 function logError(error: Error, context: Record<string, unknown>) {
-  if (error.name === "ValidationError") {
-    console.warn("Expected error:", { error: error.message, context });
+  if (error.name === 'ValidationError') {
+    console.warn('Expected error:', { error: error.message, context });
   } else {
-    console.error("Unexpected error:", {
+    console.error('Unexpected error:', {
       error: error.message,
       stack: error.stack,
       context,
@@ -23,13 +30,20 @@ function logError(error: Error, context: Record<string, unknown>) {
 }
 
 const createThemeSchema = z.object({
-  name: z.string().min(1, "Theme name cannot be empty").max(50, "Theme name too long"),
+  name: z
+    .string()
+    .min(1, 'Theme name cannot be empty')
+    .max(50, 'Theme name too long'),
   styles: themeStylesSchema,
 });
 
 const updateThemeSchema = z.object({
-  id: z.string().min(1, "Theme ID required"),
-  name: z.string().min(1, "Theme name cannot be empty").max(50, "Theme name too long").optional(),
+  id: z.string().min(1, 'Theme ID required'),
+  name: z
+    .string()
+    .min(1, 'Theme name cannot be empty')
+    .max(50, 'Theme name too long')
+    .optional(),
   styles: themeStylesSchema.optional(),
 });
 
@@ -42,7 +56,7 @@ export async function getThemes() {
   try {
     return await db.select().from(themeTable);
   } catch (error) {
-    logError(error as Error, { action: "getThemes" });
+    logError(error as Error, { action: 'getThemes' });
     throw error;
   }
 }
@@ -50,26 +64,33 @@ export async function getThemes() {
 export const getTheme = cache(async (themeId: string) => {
   try {
     if (!themeId) {
-      throw new ValidationError("Theme ID required");
+      throw new ValidationError('Theme ID required');
     }
 
-    const [theme] = await db.select().from(themeTable).where(eq(themeTable.id, themeId)).limit(1);
+    const [theme] = await db
+      .select()
+      .from(themeTable)
+      .where(eq(themeTable.id, themeId))
+      .limit(1);
     if (!theme) {
       throw new ThemeNotFoundError();
     }
 
     return theme;
   } catch (error) {
-    logError(error as Error, { action: "getTheme", themeId });
+    logError(error as Error, { action: 'getTheme', themeId });
     throw error;
   }
 });
 
-export async function createTheme(formData: { name: string; styles: ThemeStyles }) {
+export async function createTheme(formData: {
+  name: string;
+  styles: ThemeStyles;
+}) {
   try {
     const validation = createThemeSchema.safeParse(formData);
     if (!validation.success) {
-      throw new ValidationError("Invalid input", validation.error.format());
+      throw new ValidationError('Invalid input', validation.error.format());
     }
 
     const { name, styles } = validation.data;
@@ -88,21 +109,28 @@ export async function createTheme(formData: { name: string; styles: ThemeStyles 
 
     return actionSuccess(insertedTheme);
   } catch (error) {
-    logError(error as Error, { action: "createTheme", formData: { name: formData.name } });
+    logError(error as Error, {
+      action: 'createTheme',
+      formData: { name: formData.name },
+    });
     throw error;
   }
 }
 
-export async function updateTheme(formData: { id: string; name?: string; styles?: ThemeStyles }) {
+export async function updateTheme(formData: {
+  id: string;
+  name?: string;
+  styles?: ThemeStyles;
+}) {
   try {
     const validation = updateThemeSchema.safeParse(formData);
     if (!validation.success) {
-      throw new ValidationError("Invalid input", validation.error.format());
+      throw new ValidationError('Invalid input', validation.error.format());
     }
 
     const { id: themeId, name, styles } = validation.data;
     if (!name && !styles) {
-      throw new ValidationError("No update data provided");
+      throw new ValidationError('No update data provided');
     }
 
     const updateData: Partial<typeof themeTable.$inferInsert> = {
@@ -118,12 +146,12 @@ export async function updateTheme(formData: { id: string; name?: string; styles?
       .returning();
 
     if (!updatedTheme) {
-      throw new ThemeNotFoundError("Theme not found");
+      throw new ThemeNotFoundError('Theme not found');
     }
 
     return updatedTheme;
   } catch (error) {
-    logError(error as Error, { action: "updateTheme", themeId: formData.id });
+    logError(error as Error, { action: 'updateTheme', themeId: formData.id });
     throw error;
   }
 }
@@ -131,7 +159,7 @@ export async function updateTheme(formData: { id: string; name?: string; styles?
 export async function deleteTheme(themeId: string) {
   try {
     if (!themeId) {
-      throw new ValidationError("Theme ID required");
+      throw new ValidationError('Theme ID required');
     }
 
     const [deletedTheme] = await db
@@ -140,30 +168,30 @@ export async function deleteTheme(themeId: string) {
       .returning({ id: themeTable.id, name: themeTable.name });
 
     if (!deletedTheme) {
-      throw new ThemeNotFoundError("Theme not found");
+      throw new ThemeNotFoundError('Theme not found');
     }
 
     return deletedTheme;
   } catch (error) {
-    logError(error as Error, { action: "deleteTheme", themeId });
+    logError(error as Error, { action: 'deleteTheme', themeId });
     throw error;
   }
 }
 
 export async function getThemesPaginated(
   cursor?: string | number,
-  limit: number = THEMES_PAGE_SIZE
+  limit: number = THEMES_PAGE_SIZE,
 ): Promise<MyThemeResponse> {
   try {
     const validation = getThemesPaginatedSchema.safeParse({ cursor, limit });
     if (!validation.success) {
-      throw new ValidationError("Invalid input", validation.error.format());
+      throw new ValidationError('Invalid input', validation.error.format());
     }
 
     const fetchLimit = limit + 1;
     let rows;
 
-    if (cursor && typeof cursor === "string") {
+    if (cursor && typeof cursor === 'string') {
       rows = await db
         .select()
         .from(themeTable)
@@ -194,7 +222,7 @@ export async function getThemesPaginated(
 
     return { themes: mappedThemes, nextCursor };
   } catch (error) {
-    logError(error as Error, { action: "getThemesPaginated", cursor });
+    logError(error as Error, { action: 'getThemesPaginated', cursor });
     throw error;
   }
 }
@@ -205,10 +233,14 @@ export async function getThemePublishData(themeId: string): Promise<{
 } | null> {
   try {
     if (!themeId) {
-      throw new ValidationError("Theme ID required");
+      throw new ValidationError('Theme ID required');
     }
 
-    const [theme] = await db.select().from(themeTable).where(eq(themeTable.id, themeId)).limit(1);
+    const [theme] = await db
+      .select()
+      .from(themeTable)
+      .where(eq(themeTable.id, themeId))
+      .limit(1);
     if (!theme) return null;
 
     return {
@@ -216,7 +248,7 @@ export async function getThemePublishData(themeId: string): Promise<{
       publishedAt: theme.createdAt.toISOString(),
     };
   } catch (error) {
-    logError(error as Error, { action: "getThemePublishData", themeId });
+    logError(error as Error, { action: 'getThemePublishData', themeId });
     return null;
   }
 }

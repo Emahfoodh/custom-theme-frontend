@@ -1,19 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
-import { getThemes, getTheme } from "@/actions/themes";
-import { Theme } from "@/third_party/tweakcn/types/theme";
+import { getTheme, getThemes } from '@/actions/themes';
+import { Theme } from '@/third_party/tweakcn/types/theme';
+import { useCallback, useEffect, useState } from 'react';
 
 export type ThemeWithPublished = Awaited<ReturnType<typeof getThemes>>[number];
 
 export const themeKeys = {
-  all: ["themes"] as const,
-  lists: () => [...themeKeys.all, "list"] as const,
-  list: (filters: Record<string, unknown>) => [...themeKeys.lists(), { filters }] as const,
-  details: () => [...themeKeys.all, "detail"] as const,
+  all: ['themes'] as const,
+  lists: () => [...themeKeys.all, 'list'] as const,
+  list: (filters: Record<string, unknown>) =>
+    [...themeKeys.lists(), { filters }] as const,
+  details: () => [...themeKeys.all, 'detail'] as const,
   detail: (id: string) => [...themeKeys.details(), { id }] as const,
 };
 
 export function useThemesData(initialData?: ThemeWithPublished[]) {
-  const [data, setData] = useState<ThemeWithPublished[] | undefined>(initialData);
+  const [data, setData] = useState<ThemeWithPublished[] | undefined>(
+    initialData,
+  );
   const [isLoading, setIsLoading] = useState(!initialData);
   const [error, setError] = useState<Error | null>(null);
 

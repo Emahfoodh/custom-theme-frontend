@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useThemeFeed } from "@/hooks/themes";
-import { useEffect, useRef } from "react";
-import { Palette, Loader2 } from "lucide-react";
-import { ThemeCard } from "./themes-theme-card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton';
+import { useThemeFeed } from '@/hooks/themes';
+import { Loader2, Palette } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { ThemeCard } from './themes-theme-card';
 
 export function ThemesContent() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -24,7 +24,7 @@ export function ThemesContent() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: '200px' },
     );
 
     observer.observe(sentinel);
@@ -42,10 +42,12 @@ export function ThemesContent() {
                   key={i}
                   className="overflow-hidden rounded-xl border border-border/60 bg-card"
                 >
-                  <Skeleton className="h-48 rounded-none" />
-                  <div className="flex items-center justify-between gap-3 border-t border-border/40 px-4 py-3">
-                    <Skeleton className="h-4 w-2/3" />
-                    <Skeleton className="h-3 w-16" />
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Skeleton className="h-full w-full rounded-none" />
+                    <Skeleton className="absolute right-3 bottom-3 h-3 w-16" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Skeleton className="h-9 w-9 rounded-full" />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -56,10 +58,12 @@ export function ThemesContent() {
                 <Palette className="h-7 w-7 text-muted-foreground" />
               </div>
               <h3 className="mb-2 text-lg font-semibold text-foreground">
-                {"No themes yet"}
+                {'No themes yet'}
               </h3>
               <p className="mx-auto max-w-sm text-sm text-muted-foreground">
-                {"Be the first to save a theme. It will appear here for everyone."}
+                {
+                  'Be the first to save a theme. It will appear here for everyone.'
+                }
               </p>
             </div>
           ) : (
