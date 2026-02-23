@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
-import { ColorFormat } from '@/types';
 import { usePreferencesStore } from '@/third_party/tweakcn/store/preferences-store';
+import { ColorFormat } from '@/third_party/tweakcn/types';
 import { ThemeEditorState } from '@/third_party/tweakcn/types/editor';
 import {
   generateLayoutCode,
@@ -33,13 +33,14 @@ export default function CodePanel({ themeEditorState }: CodePanelProps) {
   const codeClipboard = useCopyToClipboard();
   const tailwindVersion = '4' as const;
 
-  const code = generateThemeCode(themeEditorState, colorFormat, tailwindVersion);
+  const code = generateThemeCode(
+    themeEditorState,
+    colorFormat,
+    tailwindVersion,
+  );
   const layoutCode = generateLayoutCode(themeEditorState);
 
-  const activeCode =
-    activeTab === 'index.css'
-      ? code
-      : layoutCode;
+  const activeCode = activeTab === 'index.css' ? code : layoutCode;
 
   useEffect(() => {
     if (colorFormat !== 'hsl' && colorFormat !== 'oklch') {
@@ -81,10 +82,16 @@ export default function CodePanel({ themeEditorState }: CodePanelProps) {
       >
         <div className="bg-muted/50 flex flex-none items-center justify-between border-b px-4 py-2">
           <TabsList className="h-8 bg-transparent p-0">
-            <TabsTrigger value="index.css" className="h-7 px-3 text-sm font-medium">
+            <TabsTrigger
+              value="index.css"
+              className="h-7 px-3 text-sm font-medium"
+            >
               index.css
             </TabsTrigger>
-            <TabsTrigger value="layout.tsx" className="h-7 px-3 text-sm font-medium">
+            <TabsTrigger
+              value="layout.tsx"
+              className="h-7 px-3 text-sm font-medium"
+            >
               layout.tsx (Next.js)
             </TabsTrigger>
           </TabsList>
@@ -97,7 +104,9 @@ export default function CodePanel({ themeEditorState }: CodePanelProps) {
             }}
             className="h-8"
             aria-label={
-              codeClipboard.hasCopied ? 'Copied to clipboard' : 'Copy to clipboard'
+              codeClipboard.hasCopied
+                ? 'Copied to clipboard'
+                : 'Copy to clipboard'
             }
           >
             {codeClipboard.hasCopied ? (

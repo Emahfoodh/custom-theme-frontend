@@ -7,8 +7,8 @@
  * - Code formatting adjustments
  * - Updated import paths to match project structure
  */
-import { ColorFormat } from '@/types';
 import { defaultLightThemeStyles } from '../config/theme';
+import { ColorFormat } from '../types';
 import { ThemeEditorState } from '../types/editor';
 import { ThemeStyles } from '../types/theme';
 import { colorFormatter } from './color-converter';

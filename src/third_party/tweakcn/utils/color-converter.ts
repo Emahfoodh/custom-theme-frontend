@@ -7,9 +7,9 @@
  * - Code formatting adjustments
  * - Updated import paths to match project structure
  */
-import { ColorFormat } from '@/types';
 import * as culori from 'culori';
 import { Hsl } from 'culori';
+import { ColorFormat } from '../types';
 
 export const formatNumber = (num?: number) => {
   if (!num) return '0';

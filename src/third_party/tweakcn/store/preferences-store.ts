@@ -7,9 +7,9 @@
  * - Code formatting adjustments
  * - Updated import paths to match project structure
  */
-import { ColorFormat } from '@/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { ColorFormat } from '../types';
 
 type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 export type ColorSelectorTab = 'list' | 'palette';
