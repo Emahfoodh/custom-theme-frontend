@@ -2,7 +2,7 @@ import { getTheme, getThemes } from '@/actions/themes';
 import { Theme } from '@/third_party/tweakcn/types/theme';
 import { useCallback, useEffect, useState } from 'react';
 
-export type ThemeWithPublished = Awaited<ReturnType<typeof getThemes>>[number];
+type ThemeWithPublished = Awaited<ReturnType<typeof getThemes>>[number];
 
 export const themeKeys = {
   all: ['themes'] as const,

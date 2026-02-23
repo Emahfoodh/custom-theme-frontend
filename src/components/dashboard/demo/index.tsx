@@ -208,6 +208,7 @@ const allEntries: DashboardEntryRow[] = [
   },
 ];
 
+// ts-prune-ignore next
 export default function DashboardDemo() {
   const [period, setPeriod] = useState('Week');
   const [search, setSearch] = useState('');

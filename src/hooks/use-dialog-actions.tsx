@@ -128,7 +128,7 @@ function useDialogActionsStore(): DialogActionsContextType {
   return value;
 }
 
-export const DialogActionsContext =
+const DialogActionsContext =
   createContext<DialogActionsContextType | null>(null);
 
 export function DialogActionsProvider({ children }: { children: ReactNode }) {

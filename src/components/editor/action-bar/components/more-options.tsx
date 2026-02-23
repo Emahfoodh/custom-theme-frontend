@@ -9,9 +9,7 @@ import ContrastChecker from '@/third_party/tweakcn/components/editor/contrast-ch
 import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
 import { MoreVertical } from 'lucide-react';
 
-interface MoreOptionsProps extends React.ComponentProps<
-  typeof DropdownMenuTrigger
-> {}
+type MoreOptionsProps = React.ComponentProps<typeof DropdownMenuTrigger>;
 
 export function MoreOptions({ ...props }: MoreOptionsProps) {
   const { themeState } = useEditorStore();

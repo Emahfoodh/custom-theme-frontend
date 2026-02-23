@@ -34,12 +34,6 @@ export type DashboardEntryRow = {
   billable: boolean;
 };
 
-export type DashboardTimerProject = {
-  id: string;
-  name: string;
-  tasks: string[];
-};
-
 export type DashboardQuickAction = {
   id: string;
   label: string;

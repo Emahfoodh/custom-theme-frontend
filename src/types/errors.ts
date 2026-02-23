@@ -1,9 +1,5 @@
-export type ActionResult<T> =
-  | { success: true; data: T }
-  | { success: false; error: { message: string } };
-
-export function actionSuccess<T>(data: T): ActionResult<T> {
-  return { success: true, data };
+export function actionSuccess<T>(data: T) {
+  return { success: true as const, data };
 }
 
 export class ValidationError extends Error {

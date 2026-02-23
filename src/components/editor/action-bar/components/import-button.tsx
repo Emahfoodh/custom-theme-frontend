@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FileCode } from 'lucide-react';
 
-interface ImportButtonProps extends React.ComponentProps<typeof Button> {}
+type ImportButtonProps = React.ComponentProps<typeof Button>;
 
 export function ImportButton({ className, ...props }: ImportButtonProps) {
   return (

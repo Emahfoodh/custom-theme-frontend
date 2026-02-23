@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
 import { Redo, Undo } from 'lucide-react';
 
-interface UndoRedoButtonsProps extends React.ComponentProps<typeof Button> {}
+type UndoRedoButtonsProps = React.ComponentProps<typeof Button>;
 
 export function UndoRedoButtons({ disabled, ...props }: UndoRedoButtonsProps) {
   const { undo, redo, canUndo, canRedo } = useEditorStore();
