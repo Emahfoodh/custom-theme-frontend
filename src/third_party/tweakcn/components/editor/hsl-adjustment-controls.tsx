@@ -15,7 +15,7 @@ import {
   COMMON_STYLES,
   defaultThemeState,
 } from '@/third_party/tweakcn/config/theme';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import { ThemeEditorState } from '@/third_party/tweakcn/types/editor';
 import { debounce } from '@/third_party/tweakcn/utils/debounce';
 import { converter, formatHex, Hsl } from 'culori';

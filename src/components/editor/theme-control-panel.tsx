@@ -21,7 +21,7 @@ import {
   ControlTab,
   useControlsTabFromUrl,
 } from '@/third_party/tweakcn/hooks/use-controls-tab-from-url';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import { FontInfo } from '@/third_party/tweakcn/types/fonts';
 import {
   ThemeStyleProps,

@@ -4,7 +4,7 @@ import { useCreateTheme, useUpdateTheme } from '@/hooks/themes';
 import CssImportDialog from '@/third_party/tweakcn/components/editor/css-import-dialog';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { toast } from 'sonner';
-import { useEditorStore } from '../third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '../store/editor-store';
 import { useThemePresetStore } from '../third_party/tweakcn/store/theme-preset-store';
 import { parseCssInput } from '../third_party/tweakcn/utils/parse-css-input';
 

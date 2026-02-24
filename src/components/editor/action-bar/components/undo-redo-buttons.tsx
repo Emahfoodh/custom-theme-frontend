@@ -1,12 +1,15 @@
 import { TooltipWrapper } from '@/components/tooltip-wrapper';
 import { Button } from '@/components/ui/button';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import { Redo, Undo } from 'lucide-react';
 
 type UndoRedoButtonsProps = React.ComponentProps<typeof Button>;
 
 export function UndoRedoButtons({ disabled, ...props }: UndoRedoButtonsProps) {
-  const { undo, redo, canUndo, canRedo } = useEditorStore();
+  const undo = useEditorStore((state) => state.undo);
+  const redo = useEditorStore((state) => state.redo);
+  const canUndo = useEditorStore((state) => state.canUndo());
+  const canRedo = useEditorStore((state) => state.canRedo());
 
   return (
     <div className="flex items-center gap-1">
@@ -14,7 +17,7 @@ export function UndoRedoButtons({ disabled, ...props }: UndoRedoButtonsProps) {
         <Button
           variant="ghost"
           size="icon"
-          disabled={disabled || !canUndo()}
+          disabled={disabled || !canUndo}
           {...props}
           onClick={undo}
         >
@@ -26,7 +29,7 @@ export function UndoRedoButtons({ disabled, ...props }: UndoRedoButtonsProps) {
         <Button
           variant="ghost"
           size="icon"
-          disabled={disabled || !canRedo()}
+          disabled={disabled || !canRedo}
           {...props}
           onClick={redo}
         >

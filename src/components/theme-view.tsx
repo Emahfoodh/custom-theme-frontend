@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Theme } from '@/db/schema/theme';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import { Calendar, Edit } from 'lucide-react';
 import { notFound, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -54,7 +54,7 @@ export default function ThemeView({ theme, themePublishData }: ThemeViewProps) {
       styles: theme.styles,
     });
     saveThemeCheckpoint();
-    router.push('/editor/theme');
+    router.push(`/editor/theme/${theme.id}`);
   };
 
   const publishedAt = themePublishData?.publishedAt;

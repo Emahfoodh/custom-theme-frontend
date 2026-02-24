@@ -11,7 +11,7 @@
 
 import { createContext, useContext, useEffect } from 'react';
 import { useThemePresetFromUrl } from '../hooks/use-theme-preset-from-url';
-import { useEditorStore } from '../store/editor-store';
+import { useEditorStore } from '../../../store/editor-store';
 import { applyThemeToElement } from '../utils/apply-theme';
 
 type Theme = 'dark' | 'light';

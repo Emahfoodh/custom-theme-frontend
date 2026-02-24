@@ -9,7 +9,7 @@
  */
 import { useQueryState } from 'nuqs';
 import React from 'react';
-import { useEditorStore } from '../store/editor-store';
+import { useEditorStore } from '../../../store/editor-store';
 
 export const useThemePresetFromUrl = () => {
   const [preset, setPreset] = useQueryState('theme');

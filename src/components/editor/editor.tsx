@@ -1,11 +1,11 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Theme } from '@/db/schema/theme';
 import { DialogActionsProvider } from '@/hooks/use-dialog-actions';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
-import { ThemeStyles } from '@/third_party/tweakcn/types/theme';
+import { useEditorStore } from '@/store/editor-store';
+import { useThemePresetStore } from '@/third_party/tweakcn/store/theme-preset-store';
+import { Theme, ThemeStyles } from '@/third_party/tweakcn/types/theme';
 import { Sliders } from 'lucide-react';
 import React, { use, useEffect, useState } from 'react';
 import { ActionBar } from './action-bar/components/action-bar';
@@ -29,6 +29,7 @@ const isThemeStyles = (styles: unknown): styles is ThemeStyles => {
 const Editor: React.FC<EditorProps> = ({ themePromise }) => {
   const themeState = useEditorStore((state) => state.themeState);
   const setThemeState = useEditorStore((state) => state.setThemeState);
+  const registerPreset = useThemePresetStore((state) => state.registerPreset);
   const isMobile = useIsMobile();
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -48,6 +49,12 @@ const Editor: React.FC<EditorProps> = ({ themePromise }) => {
 
   useEffect(() => {
     if (initialTheme && isThemeStyles(initialTheme.styles)) {
+      registerPreset(initialTheme.id, {
+        label: initialTheme.name,
+        source: 'SAVED',
+        styles: initialTheme.styles,
+      });
+
       const prev = useEditorStore.getState().themeState;
       setThemeState({
         ...prev,
@@ -55,7 +62,7 @@ const Editor: React.FC<EditorProps> = ({ themePromise }) => {
         preset: initialTheme.id,
       });
     }
-  }, [initialTheme, setThemeState]);
+  }, [initialTheme, registerPreset, setThemeState]);
 
   if (initialTheme && !isThemeStyles(initialTheme.styles)) {
     return (

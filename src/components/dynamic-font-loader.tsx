@@ -1,6 +1,6 @@
 'use client';
 
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import {
   extractFontFamily,
   getDefaultWeights,

@@ -1,6 +1,6 @@
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Separator } from '@/components/ui/separator';
-import { useEditorStore } from '@/third_party/tweakcn/store/editor-store';
+import { useEditorStore } from '@/store/editor-store';
 import { CodeButton } from './code-button';
 import { ImportButton } from './import-button';
 import { MoreOptions } from './more-options';
@@ -21,7 +21,8 @@ export function ActionBarButtons({
   onSaveClick,
   isSaving,
 }: ActionBarButtonsProps) {
-  const { resetToCurrentPreset, hasUnsavedChanges } = useEditorStore();
+  const resetToCurrentPreset = useEditorStore((state) => state.resetToCurrentPreset);
+  const hasUnsavedChanges = useEditorStore((state) => state.hasUnsavedChanges());
   const isBusy = isSaving;
 
   const handleReset = () => {
@@ -38,7 +39,7 @@ export function ActionBarButtons({
       <Separator orientation="vertical" className="mx-1 h-8" />
       <ResetButton
         onClick={handleReset}
-        disabled={!hasUnsavedChanges() || isBusy}
+        disabled={!hasUnsavedChanges || isBusy}
       />
       <div className="hidden items-center gap-1 md:flex">
         <ImportButton onClick={onImportClick} disabled={isBusy} />

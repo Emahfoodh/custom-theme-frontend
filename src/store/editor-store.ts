@@ -1,12 +1,3 @@
-/*
- * This file is part of tweakcn
- * Copyright (c) Sahaj J.
- * Licensed under the Apache License 2.0
- *
- * Modifications 2026:
- * - Code formatting adjustments
- * - Updated import paths to match project structure
- */
 import { isDeepEqual } from '@/lib/utils';
 import { defaultThemeState } from '@/third_party/tweakcn/config/theme';
 import { ThemeEditorState } from '@/third_party/tweakcn/types/editor';
@@ -49,6 +40,12 @@ export const useEditorStore = create<EditorStore>()(
       future: [],
       setThemeState: (newState: ThemeEditorState) => {
         const oldThemeState = get().themeState;
+
+        // Ignore no-op updates to avoid polluting history.
+        if (isDeepEqual(oldThemeState, newState)) {
+          return;
+        }
+
         let currentHistory = get().history;
         let currentFuture = get().future;
 
@@ -263,6 +260,19 @@ export const useEditorStore = create<EditorStore>()(
     }),
     {
       name: 'editor-storage',
+      version: 2,
+      partialize: (state) => ({
+        themeState: state.themeState,
+      }),
+      migrate: (persistedState) => {
+        const state = persistedState as Partial<EditorStore> | undefined;
+        return {
+          themeState: state?.themeState ?? defaultThemeState,
+          themeCheckpoint: null,
+          history: [],
+          future: [],
+        };
+      },
     },
   ),
 );
