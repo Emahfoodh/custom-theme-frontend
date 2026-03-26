@@ -1,10 +1,13 @@
+import { sql } from 'drizzle-orm';
 import { json, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 import type { ThemeStyles } from '@/third_party/tweakcn/types/theme';
 
 // ts-prune-ignore-next
 export const theme = pgTable('theme', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .default(sql`gen_random_uuid()::text`)
+    .primaryKey(),
   name: text('name').notNull(),
   styles: json('styles').$type<ThemeStyles>().notNull(),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })

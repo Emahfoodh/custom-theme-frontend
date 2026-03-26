@@ -67,6 +67,7 @@ export function FontPicker({
   );
   const [loadingFont, setLoadingFont] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const nextPageRequestedRef = useRef(false);
 
   const selectedFontRef = useRef<HTMLDivElement>(null);
   const hasScrolledToSelectedFont = useRef(false);
@@ -90,6 +91,12 @@ export function FontPicker({
   }, [selectedCategory, searchQuery, open]);
 
   useEffect(() => {
+    if (!fontQuery.isFetchingNextPage) {
+      nextPageRequestedRef.current = false;
+    }
+  }, [fontQuery.isFetchingNextPage]);
+
+  useEffect(() => {
     if (open && fontQuery.data && !hasScrolledToSelectedFont.current) {
       requestAnimationFrame(() => {
         selectedFontRef.current?.scrollIntoView({
@@ -109,39 +116,6 @@ export function FontPicker({
     return fontQuery.data.pages.flatMap((page: { fonts: any }) => page.fonts);
   }, [fontQuery.data]);
 
-  // Intersection Observer ref callback for infinite scroll
-  const loadMoreRefCallback = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (
-            entry.isIntersecting &&
-            fontQuery.hasNextPage &&
-            !fontQuery.isFetchingNextPage
-          ) {
-            fontQuery.fetchNextPage();
-          }
-        },
-        {
-          root: scrollRef.current,
-          rootMargin: '100px',
-          threshold: 0,
-        },
-      );
-
-      observer.observe(node);
-      return () => observer.unobserve(node);
-    },
-    [
-      fontQuery.hasNextPage,
-      fontQuery.isFetchingNextPage,
-      fontQuery.fetchNextPage,
-    ],
-  );
-
   const handleFontSelect = useCallback(
     async (font: FontInfo) => {
       setLoadingFont(font.family);
@@ -159,6 +133,29 @@ export function FontPicker({
     },
     [onSelect],
   );
+
+  const handleListScroll = useCallback(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+
+    if (!fontQuery.hasNextPage || fontQuery.isFetchingNextPage) {
+      return;
+    }
+
+    const threshold = 120;
+    const distanceFromBottom =
+      node.scrollHeight - node.scrollTop - node.clientHeight;
+    const isNearBottom = distanceFromBottom <= threshold;
+
+    if (isNearBottom && !nextPageRequestedRef.current) {
+      nextPageRequestedRef.current = true;
+      fontQuery.fetchNextPage();
+    }
+  }, [
+    fontQuery.fetchNextPage,
+    fontQuery.hasNextPage,
+    fontQuery.isFetchingNextPage,
+  ]);
 
   // Get current font info for display
   const currentFont = useMemo(() => {
@@ -259,7 +256,7 @@ export function FontPicker({
 
           <Separator />
 
-          <div className="relative isolate size-full">
+          <div className="relative isolate flex-1 min-h-0">
             {fontQuery.isLoading ? (
               <div className="absolute inset-0 flex size-full items-center justify-center gap-2 text-center">
                 <Loader2 className="size-4 animate-spin" />
@@ -271,8 +268,9 @@ export function FontPicker({
               <CommandEmpty>No fonts found.</CommandEmpty>
             ) : (
               <CommandList
-                className="scrollbar-thin size-full p-1"
+                className="scrollbar-thin h-full max-h-none p-1 pb-2"
                 ref={scrollRef}
+                onScroll={handleListScroll}
               >
                 {allFonts.map((font: FontInfo) => {
                   const isSelected = font.family === value;
@@ -323,11 +321,6 @@ export function FontPicker({
                     </CommandItem>
                   );
                 })}
-
-                {/* Load more trigger element */}
-                {fontQuery.hasNextPage && (
-                  <div ref={loadMoreRefCallback} className="h-2 w-full" />
-                )}
 
                 {/* Loading indicator for infinite scroll */}
                 {fontQuery.isFetchingNextPage && (

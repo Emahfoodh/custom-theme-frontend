@@ -36,9 +36,6 @@ export function useCreateTheme() {
 
       try {
         const result = await createTheme(data);
-        if (!result.success) {
-          throw new Error(result.error.message);
-        }
 
         registerPreset(result.data.id, {
           label: result.data.name,

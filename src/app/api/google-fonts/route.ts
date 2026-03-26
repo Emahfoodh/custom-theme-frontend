@@ -28,7 +28,10 @@ export async function GET(request: NextRequest) {
         process.env.GOOGLE_FONTS_API_KEY,
       );
     } catch (error) {
-      console.error('Error fetching Google Fonts:', error);
+      console.error('Error fetching Google Fonts in route:', {
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
       console.log('Using fallback fonts');
     }
 
@@ -59,7 +62,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response);
   } catch (error) {
-    console.error('Error in Google Fonts API:', error);
+    console.error('Error in Google Fonts API route:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
       { error: 'Failed to fetch fonts' },
       { status: 500 },

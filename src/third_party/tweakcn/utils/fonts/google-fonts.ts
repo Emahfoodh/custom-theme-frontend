@@ -26,8 +26,15 @@ export async function fetchGoogleFonts(
       `${GOOGLE_FONTS_API_URL}?key=${googleFontsApiKey}`,
     );
 
-    if (!response.ok)
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error('Google Fonts API request failed', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorBody,
+      });
       throw new Error(`Google Fonts API error: ${response.status}`);
+    }
 
     const data: GoogleFontsAPIResponse = await response.json();
 
@@ -45,7 +52,10 @@ export async function fetchGoogleFonts(
     console.log(`✅ Fetched ${fonts.length} fonts from Google Fonts API`);
     return fonts;
   } catch (error) {
-    console.error('Failed to fetch Google Fonts:', error);
+    console.error('Failed to fetch Google Fonts:', {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     throw error;
   }
 }
