@@ -93,7 +93,9 @@ export function ThemeSaveDialog({
               <Button
                 className="w-full"
                 disabled={isUpdating || isSaving}
-                onClick={onUpdateExisting}
+                onClick={() => {
+                  void onUpdateExisting?.();
+                }}
               >
                 {isUpdating ? (
                   <>
@@ -116,7 +118,12 @@ export function ThemeSaveDialog({
           )}
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={(event) => {
+                void form.handleSubmit(onSubmit)(event);
+              }}
+              className="space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="themeName"
@@ -151,7 +158,9 @@ export function ThemeSaveDialog({
               !form.formState.isValid ||
               form.formState.isSubmitting
             }
-            onClick={form.handleSubmit(onSubmit)}
+            onClick={(event) => {
+              void form.handleSubmit(onSubmit)(event);
+            }}
           >
             {isSaving || form.formState.isSubmitting ? (
               <>

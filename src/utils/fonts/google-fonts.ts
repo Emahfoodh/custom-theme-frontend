@@ -1,20 +1,10 @@
-/*
- * This file is part of tweakcn
- * Copyright (c) Sahaj J.
- * Licensed under the Apache License 2.0
- *
- * Modifications 2026:
- * - Code formatting adjustments
- * - Updated import paths to match project structure
- */
 import {
   FontInfo,
   GoogleFont,
   GoogleFontsAPIResponse,
 } from '@/third_party/tweakcn/types/fonts';
 
-export const GOOGLE_FONTS_API_URL =
-  'https://www.googleapis.com/webfonts/v1/webfonts';
+const GOOGLE_FONTS_API_URL = 'https://www.googleapis.com/webfonts/v1/webfonts';
 
 export async function fetchGoogleFonts(
   googleFontsApiKey: string | undefined,
@@ -38,7 +28,6 @@ export async function fetchGoogleFonts(
 
     const data: GoogleFontsAPIResponse = await response.json();
 
-    // Transform to our format
     const fonts: FontInfo[] = data.items.map((font: GoogleFont) => ({
       family: font.family,
       category: font.category,
@@ -60,25 +49,18 @@ export async function fetchGoogleFonts(
   }
 }
 
-// Build Google Fonts CSS API URL
-export function buildFontCssUrl(
-  family: string,
-  weights: string[] = ['400'],
-): string {
+function buildFontCssUrl(family: string, weights: string[] = ['400']): string {
   const encodedFamily = encodeURIComponent(family);
-  const weightsParam = weights.join(';'); // Use semicolon for Google Fonts API v2
+  const weightsParam = weights.join(';');
   return `https://fonts.googleapis.com/css2?family=${encodedFamily}:wght@${weightsParam}&display=swap`;
 }
 
-// Simple font loading using native browser APIs
-// Just use a <link> tag - seems to be the recommended approach
 export function loadGoogleFont(
   family: string,
   weights: string[] = ['400', '700'],
 ): void {
   if (typeof document === 'undefined') return;
 
-  // Check if already loaded
   const href = buildFontCssUrl(family, weights);
   const existing = document.querySelector(`link[href="${href}"]`);
   if (existing) return;

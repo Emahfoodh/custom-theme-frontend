@@ -1,14 +1,6 @@
-/*
- * This file is part of tweakcn
- * Copyright (c) Sahaj J.
- * Licensed under the Apache License 2.0
- *
- * Modifications 2026:
- * - Code formatting adjustments
- * - Updated import paths to match project structure
- */
 'use client';
 
+import { TooltipWrapper } from '@/components/tooltip-wrapper';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -31,18 +23,20 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { Check, ChevronDown, FunnelX, Loader2 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDebouncedCallback } from '../../hooks/use-debounced-callback';
-import { FilterFontCategory, useFontSearch } from '../../hooks/use-font-search';
-import { FontInfo } from '../../types/fonts';
+import { useDebouncedCallback } from '@/third_party/tweakcn/hooks/use-debounced-callback';
+import {
+  FilterFontCategory,
+  useFontSearch,
+} from '@/third_party/tweakcn/hooks/use-font-search';
+import { FontInfo } from '@/third_party/tweakcn/types/fonts';
 import {
   buildFontFamily,
   getDefaultWeights,
   waitForFont,
-} from '../../utils/fonts';
-import { loadGoogleFont } from '../../utils/fonts/google-fonts';
-import { TooltipWrapper } from '../tooltip-wrapper';
+} from '@/third_party/tweakcn/utils/fonts';
+import { loadGoogleFont } from '@/utils/fonts/google-fonts';
+import { Check, ChevronDown, FunnelX, Loader2 } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 interface FontPickerProps {
   value?: string;
@@ -84,6 +78,7 @@ export function FontPicker({
     limit: 15,
     enabled: open,
   });
+  const { fetchNextPage, hasNextPage, isFetchingNextPage } = fontQuery;
 
   useEffect(() => {
     if (!open) return;
@@ -91,10 +86,10 @@ export function FontPicker({
   }, [selectedCategory, searchQuery, open]);
 
   useEffect(() => {
-    if (!fontQuery.isFetchingNextPage) {
+    if (!isFetchingNextPage) {
       nextPageRequestedRef.current = false;
     }
-  }, [fontQuery.isFetchingNextPage]);
+  }, [isFetchingNextPage]);
 
   useEffect(() => {
     if (open && fontQuery.data && !hasScrolledToSelectedFont.current) {
@@ -110,10 +105,9 @@ export function FontPicker({
     }
   }, [open, fontQuery.data]);
 
-  // Flatten all pages into a single array
   const allFonts = useMemo(() => {
     if (!fontQuery.data) return [];
-    return fontQuery.data.pages.flatMap((page: { fonts: any }) => page.fonts);
+    return fontQuery.data.pages.flatMap((page) => page.fonts);
   }, [fontQuery.data]);
 
   const handleFontSelect = useCallback(
@@ -138,7 +132,7 @@ export function FontPicker({
     const node = scrollRef.current;
     if (!node) return;
 
-    if (!fontQuery.hasNextPage || fontQuery.isFetchingNextPage) {
+    if (!hasNextPage || isFetchingNextPage) {
       return;
     }
 
@@ -149,24 +143,16 @@ export function FontPicker({
 
     if (isNearBottom && !nextPageRequestedRef.current) {
       nextPageRequestedRef.current = true;
-      fontQuery.fetchNextPage();
+      fetchNextPage();
     }
-  }, [
-    fontQuery.fetchNextPage,
-    fontQuery.hasNextPage,
-    fontQuery.isFetchingNextPage,
-  ]);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  // Get current font info for display
   const currentFont = useMemo(() => {
     if (!value) return null;
 
-    // First try to find the font in the search results
     const foundFont = allFonts.find((font: FontInfo) => font.family === value);
     if (foundFont) return foundFont;
 
-    // If not found in search results, create a fallback FontInfo object
-    // This happens when a font is selected and then the search changes
     const extractedFontName = value.split(',')[0].trim().replace(/['"]/g, '');
 
     return {
@@ -288,7 +274,9 @@ export function FontPicker({
                     <CommandItem
                       key={font.family}
                       className="flex cursor-pointer items-center justify-between gap-2 p-2"
-                      onSelect={() => handleFontSelect(font)}
+                      onSelect={() => {
+                        void handleFontSelect(font);
+                      }}
                       disabled={isLoading}
                       onMouseEnter={handlePreloadOnHover}
                       ref={isSelected ? selectedFontRef : null}
@@ -322,7 +310,6 @@ export function FontPicker({
                   );
                 })}
 
-                {/* Loading indicator for infinite scroll */}
                 {fontQuery.isFetchingNextPage && (
                   <div className="flex items-center justify-center gap-2 p-2">
                     <Loader2 className="size-4 animate-spin" />

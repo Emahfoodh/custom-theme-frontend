@@ -7,7 +7,7 @@ import { useEditorStore } from '@/store/editor-store';
 import { useThemePresetStore } from '@/third_party/tweakcn/store/theme-preset-store';
 import { Theme, ThemeStyles } from '@/third_party/tweakcn/types/theme';
 import { Sliders } from 'lucide-react';
-import React, { use, useEffect, useState } from 'react';
+import React, { use, useEffect } from 'react';
 import { ActionBar } from './action-bar/components/action-bar';
 import ThemeControlPanel from './theme-control-panel';
 import ThemePreviewPanel from './theme-preview-panel';
@@ -31,13 +31,8 @@ const Editor: React.FC<EditorProps> = ({ themePromise }) => {
   const setThemeState = useEditorStore((state) => state.setThemeState);
   const registerPreset = useThemePresetStore((state) => state.registerPreset);
   const isMobile = useIsMobile();
-  const [hasMounted, setHasMounted] = useState(false);
 
-  const initialTheme = themePromise ? use(themePromise) : null;
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  const initialTheme = use(themePromise);
 
   const handleStyleChange = React.useCallback(
     (newStyles: ThemeStyles) => {
@@ -73,11 +68,6 @@ const Editor: React.FC<EditorProps> = ({ themePromise }) => {
   }
 
   const styles = themeState.styles;
-
-  // Avoid hydration mismatch between server and client theme state
-  if (!hasMounted) {
-    return null;
-  }
 
   // Mobile layout
   if (isMobile) {

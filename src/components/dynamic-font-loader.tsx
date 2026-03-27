@@ -5,7 +5,7 @@ import {
   extractFontFamily,
   getDefaultWeights,
 } from '@/third_party/tweakcn/utils/fonts';
-import { loadGoogleFont } from '@/third_party/tweakcn/utils/fonts/google-fonts';
+import { loadGoogleFont } from '@/utils/fonts/google-fonts';
 import { useEffect, useMemo } from 'react';
 
 export function DynamicFontLoader() {

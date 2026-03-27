@@ -128,8 +128,9 @@ function useDialogActionsStore(): DialogActionsContextType {
   return value;
 }
 
-const DialogActionsContext =
-  createContext<DialogActionsContextType | null>(null);
+const DialogActionsContext = createContext<DialogActionsContextType | null>(
+  null,
+);
 
 export function DialogActionsProvider({ children }: { children: ReactNode }) {
   const { themeState } = useEditorStore();

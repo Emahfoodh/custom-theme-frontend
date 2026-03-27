@@ -21,8 +21,12 @@ export function ActionBarButtons({
   onSaveClick,
   isSaving,
 }: ActionBarButtonsProps) {
-  const resetToCurrentPreset = useEditorStore((state) => state.resetToCurrentPreset);
-  const hasUnsavedChanges = useEditorStore((state) => state.hasUnsavedChanges());
+  const resetToCurrentPreset = useEditorStore(
+    (state) => state.resetToCurrentPreset,
+  );
+  const hasUnsavedChanges = useEditorStore((state) =>
+    state.hasUnsavedChanges(),
+  );
   const isBusy = isSaving;
 
   const handleReset = () => {

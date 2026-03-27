@@ -5,8 +5,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import ContrastChecker from '@/third_party/tweakcn/components/editor/contrast-checker';
 import { useEditorStore } from '@/store/editor-store';
+import ContrastChecker from '@/third_party/tweakcn/components/editor/contrast-checker';
 import { MoreVertical } from 'lucide-react';
 
 type MoreOptionsProps = React.ComponentProps<typeof DropdownMenuTrigger>;

@@ -2,14 +2,15 @@
 
 import React from 'react';
 
+import { FontPicker } from '@/components/editor/font-picker';
 import TabsTriggerPill from '@/components/editor/theme-preview/tabs-trigger-pill';
 import { HorizontalScrollArea } from '@/components/horizontal-scroll-area';
 import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
+import { useEditorStore } from '@/store/editor-store';
 import ColorPicker from '@/third_party/tweakcn/components/editor/color-picker';
 import ControlSection from '@/third_party/tweakcn/components/editor/control-section';
-import { FontPicker } from '@/third_party/tweakcn/components/editor/font-picker';
 import HslAdjustmentControls from '@/third_party/tweakcn/components/editor/hsl-adjustment-controls';
 import ShadowControl from '@/third_party/tweakcn/components/editor/shadow-control';
 import { SliderWithInput } from '@/third_party/tweakcn/components/editor/slider-with-input';
@@ -21,7 +22,6 @@ import {
   ControlTab,
   useControlsTabFromUrl,
 } from '@/third_party/tweakcn/hooks/use-controls-tab-from-url';
-import { useEditorStore } from '@/store/editor-store';
 import { FontInfo } from '@/third_party/tweakcn/types/fonts';
 import {
   ThemeStyleProps,

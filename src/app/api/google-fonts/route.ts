@@ -1,6 +1,6 @@
 import { PaginatedFontsResponse } from '@/third_party/tweakcn/types/fonts';
 import { FALLBACK_FONTS } from '@/third_party/tweakcn/utils/fonts';
-import { fetchGoogleFonts } from '@/third_party/tweakcn/utils/fonts/google-fonts';
+import { fetchGoogleFonts } from '@/utils/fonts/google-fonts';
 import { unstable_cache } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 

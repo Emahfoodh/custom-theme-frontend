@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { ThemeStyleProps } from '@/third_party/tweakcn/types/theme';
 import { colorFormatter } from '@/third_party/tweakcn/utils/color-converter';
 import { extractFontFamily } from '@/third_party/tweakcn/utils/fonts';
-import { loadGoogleFont } from '@/third_party/tweakcn/utils/fonts/google-fonts';
+import { loadGoogleFont } from '@/utils/fonts/google-fonts';
 import { useEffect, useState } from 'react';
 
 interface ThemePreviewProps {

@@ -5,7 +5,7 @@
       "type": "local",
       "command": ["npx", "-y", "@playwright/mcp@latest"],
       "enabled": true,
-      "timeout": 20000
-    }
-  }
+      "timeout": 20000,
+    },
+  },
 }
